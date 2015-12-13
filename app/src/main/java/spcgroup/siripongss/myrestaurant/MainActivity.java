@@ -5,6 +5,8 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,6 +23,9 @@ import java.io.ObjectInputStream;
 
 public class MainActivity extends AppCompatActivity {
     private MangerTable objMangerTable;
+    private EditText userEditText, passwordEditText;
+    private  String userString, passwordString;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bindwidget();
 
         //connectDatabase
         objMangerTable = new MangerTable(this);
@@ -42,6 +49,25 @@ public class MainActivity extends AppCompatActivity {
         SynjsontoSQLite();
 
     }//Main Method
+
+    private void Bindwidget() {
+        userEditText = (EditText) findViewById(R.id.editText);
+        passwordEditText = (EditText) findViewById(R.id.editText2);
+    }
+
+    public void ClickLogin(View view) {
+        userString = userEditText.getText().toString().trim();
+        passwordString = passwordEditText.getText().toString().trim();
+        //CheckSpace
+        if (userString.equals("")||passwordString.equals("") )  {
+            //Have True
+            MyAlertDialng objMyAlertDialng = new MyAlertDialng();
+            objMyAlertDialng.errorDialog(MainActivity.this,"Have Space","Please Fill All Every Black");
+        } else {
+        }
+        //No Space
+
+    }//clicklogin
 
     private void SynjsontoSQLite() {
         //Setup myPolice
