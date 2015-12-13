@@ -66,8 +66,34 @@ public class MainActivity extends AppCompatActivity {
         } else {
         }
         //No Space
+        checkUser();
+
 
     }//clicklogin
+
+    private void checkUser() {
+        try {
+            String[] strMyResult = objMangerTable.searchuser(userString);
+            //checck password
+            if (passwordString.equals(strMyResult[2])) {
+                //Intent to listview
+
+            } else {
+                MyAlertDialng objMyAlertDialng = new MyAlertDialng();
+                objMyAlertDialng.errorDialog(MainActivity.this, "Password False", "รหัสผ่านผิดพลาด");
+
+            }
+
+        } catch (Exception e) {
+
+            MyAlertDialng objMyAlertDialng = new MyAlertDialng();
+            objMyAlertDialng.errorDialog(MainActivity.this, "User False", "No This" + userString + "in my Database");
+
+
+
+
+        }
+    }
 
     private void SynjsontoSQLite() {
         //Setup myPolice

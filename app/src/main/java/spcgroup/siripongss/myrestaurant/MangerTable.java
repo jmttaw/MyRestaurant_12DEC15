@@ -2,6 +2,7 @@ package spcgroup.siripongss.myrestaurant;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.security.Provider;
@@ -40,6 +41,41 @@ public class MangerTable {
         readSqLiteDatabase = objMyOpenHelper.getReadableDatabase();
 
     }//Constructor
+
+    public String[] searchuser(String strUser) {
+
+        try {
+            String[] strResult = null;
+            Cursor objCursor = readSqLiteDatabase.query(TABLE_USER,
+                    new String[]{COLUMN_id,COLUMN_Name,COLUMN_Password,COLUMN_Name},
+                    COLUMN_User + "=?",
+                    new String[]{String.valueOf(strUser)},
+                    null,null,null,null);
+
+            if (objCursor !=null) {
+
+                if (objCursor.moveToFirst()) {
+                    strResult = new String[4];
+                    for(int i=0;i<4;i++) {
+                        strResult[i] = objCursor.getString(i);
+
+                    }
+
+
+                } //if 2
+
+            }//if 1
+
+            objCursor.close();
+            return strResult;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+
+     //   return new String[0];
+    }
 
     public long addValueTouser(String strUser, String strpassword, String strname) {
 
