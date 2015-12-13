@@ -1,5 +1,6 @@
 package spcgroup.siripongss.myrestaurant;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -76,7 +77,12 @@ public class MainActivity extends AppCompatActivity {
             String[] strMyResult = objMangerTable.searchuser(userString);
             //checck password
             if (passwordString.equals(strMyResult[2])) {
-                //Intent to listview
+                //Intent to order
+
+                Intent objIntent = new Intent(MainActivity.this, OrderListView.class);
+                objIntent.putExtra("Officer", strMyResult[3]);
+                startActivity(objIntent);
+
 
             } else {
                 MyAlertDialng objMyAlertDialng = new MyAlertDialng();
