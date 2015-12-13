@@ -42,6 +42,42 @@ public class MangerTable {
 
     }//Constructor
 
+    public String[] readAlldata(int intColum) {
+
+        String[] strResult = null;
+        Cursor objCursor = readSqLiteDatabase.query(TABLE_FOOD,
+                new String[]{COLUMN_id,COLUMN_Food,COLUMN_Source,COLUMN_Price},
+                null,null,null,null,null);
+
+        if (objCursor !=null) {
+            objCursor.moveToFirst();
+            strResult = new String[objCursor.getCount()];
+           for (int i=0;i<objCursor.getCount();i++) {
+
+               switch (intColum) {
+                   case 1:
+                       strResult[i] = objCursor.getString(objCursor.getColumnIndex(COLUMN_Food));
+                       break;
+                   case 2:
+                       strResult[i] = objCursor.getString(objCursor.getColumnIndex(COLUMN_Source));
+                       break;
+                   case 3:
+                       strResult[i] = objCursor.getString(objCursor.getColumnIndex(COLUMN_Price));
+                       break;
+               }//switch
+
+               objCursor.moveToNext();
+
+
+           }//for
+
+        }//if
+
+        objCursor.close();
+        return strResult;
+    }
+
+
     public String[] searchuser(String strUser) {
 
         try {
